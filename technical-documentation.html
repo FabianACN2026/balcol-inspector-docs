@@ -1508,7 +1508,7 @@
                             <td><code>String objectApiName</code></td>
                             <td><code>List&lt;Map&lt;String, Object&gt;&gt;</code></td>
                             <td>Cacheable</td>
-                            <td>Returns all accessible fields with metadata for autocomplete and schema browsing</td>
+                            <td>Returns all accessible fields with metadata including <code>isUpdateable</code>, <code>isCreateable</code> for Data Loader field mapping and autocomplete</td>
                         </tr>
                         <tr>
                             <td><code>getObjectDetail</code></td>
@@ -1540,7 +1540,7 @@
 
             <!-- 3.4 MetadataBrowserController -->
             <h3 id="api-metadata"><span class="section-num">3.4</span> MetadataBrowserController</h3>
-            <p>Provides object browsing and schema exploration. Uses <code>EntityDefinition</code> for efficient object listing.</p>
+            <p>Provides object browsing and schema exploration. Uses <code>Schema.getGlobalDescribe()</code> for complete object listing across all accessible, queryable objects.</p>
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -1552,7 +1552,7 @@
                             <td><code>String searchTerm</code></td>
                             <td><code>List&lt;ObjectSummary&gt;</code></td>
                             <td>Cacheable</td>
-                            <td>Queries <code>EntityDefinition</code> for matching objects. Max 500 results.</td>
+                            <td>Uses <code>Schema.getGlobalDescribe()</code> to list all accessible, queryable objects. Sorted alphabetically by label.</td>
                         </tr>
                         <tr>
                             <td><code>getObjectDetail</code></td>
@@ -1974,18 +1974,18 @@
         <div class="section" id="test-coverage">
             <h2><span class="section-num">5.</span> Code Coverage &amp; Test Classes</h2>
             <p class="section-lead">
-                Comprehensive Apex test classes covering all 8 controllers with 119 test methods and a 100% pass rate.
+                Comprehensive Apex test classes covering all 8 controllers with 122 test methods and a 100% pass rate.
             </p>
 
             <h3 id="test-status"><span class="section-num">5.1</span> Test Results Summary</h3>
             <div class="callout callout-tip">
                 <div class="callout-title">All Tests Passing</div>
-                119 test methods across 8 test classes &mdash; 100% pass rate. All controllers have dedicated test classes with positive, negative, and edge-case coverage.
+                122 test methods across 8 test classes &mdash; 100% pass rate. All controllers have dedicated test classes with positive, negative, and edge-case coverage.
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card stat-total">
-                    <div class="stat-value">100</div>
+                    <div class="stat-value">122</div>
                     <div class="stat-label">Total Tests</div>
                 </div>
                 <div class="stat-card" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
@@ -2026,10 +2026,10 @@
                         <tr>
                             <td><code>SOQLExplorerController_Test</code></td>
                             <td><code>SOQLExplorerController</code></td>
-                            <td>26</td>
+                            <td>27</td>
                             <td><span class="badge badge-info">100%</span></td>
                             <td><strong>87%</strong></td>
-                            <td>Query execution, pagination (offset + cursor), SOSL, field listing, query plan, CSV export, inline record update, QueryException/permission edge cases</td>
+                            <td>Query execution, pagination (offset + cursor), SOSL, field listing with isUpdateable/isCreateable verification, query plan, CSV export, inline record update, QueryException/permission edge cases</td>
                         </tr>
                         <tr>
                             <td><code>ApexRunnerController_Test</code></td>
@@ -2050,10 +2050,10 @@
                         <tr>
                             <td><code>MetadataBrowserController_Test</code></td>
                             <td><code>MetadataBrowserController</code></td>
-                            <td>8</td>
+                            <td>12</td>
                             <td><span class="badge badge-info">100%</span></td>
                             <td><strong>100%</strong></td>
-                            <td>Object listing (with/without search), object detail with fields &amp; relationships, invalid object handling</td>
+                            <td>Object listing (with/without search), globalDescribe coverage, standard object discovery, ObjectSummary constructor &amp; Comparable sorting, result ordering, object detail with fields &amp; relationships, invalid object handling</td>
                         </tr>
                         <tr>
                             <td><code>SelfOrgCalloutHelper_Test</code></td>
@@ -2259,7 +2259,7 @@
 
             <h4>Code Quality</h4>
             <ul>
-                <li>8 Apex test classes with 119 test methods &mdash; 100% pass rate</li>
+                <li>8 Apex test classes with 122 test methods &mdash; 100% pass rate</li>
                 <li>Salesforce Code Analyzer scan completed</li>
                 <li>No critical code issues &mdash; all high-severity findings reviewed and accepted</li>
                 <li>Two-tier permission model with comprehensive CRUD/FLS enforcement</li>
